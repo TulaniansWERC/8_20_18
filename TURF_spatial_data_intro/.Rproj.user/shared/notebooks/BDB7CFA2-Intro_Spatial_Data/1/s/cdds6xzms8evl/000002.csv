@@ -1,0 +1,1 @@
+"0","LA<-US.counties[US.counties$STATEFP == 18,]"

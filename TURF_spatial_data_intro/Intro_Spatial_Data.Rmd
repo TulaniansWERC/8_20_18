@@ -1,0 +1,308 @@
+---
+title: "Intro to spatial data-Miscellaneous tips"
+author: "Fabiola Rodríguez"
+date: "July 2018"
+output: html_document
+---
+
+This document shares resources and examples on some basic spatial data manipulation in R. The goal is to expose people familiar with R to geospatial data, what it is, and how it is used. This document was written by pooling multiple resources presented below and/or referenced in the content. 
+
+### Resources: spatial data, tutorials, etc.
+
+Sources to start with spatial data processing are found here:
+
+1.  http://www.rspatial.org/
+
+2.  https://www.neonscience.org/dc-shapefile-attributes-r
+
+3.  https://www.neonscience.org/raster-data-r
+
+4.  http://www.mikemeredith.net/blog/1212_GIS_layer_for_Distance_from.htm
+
+5.  http://www.milanor.net/blog/maps-in-r-plotting-data-points-on-a-map/
+
+Sources for land cover classifications:
+
+6.  https://fromgistors.blogspot.com/p/semi-automatic-classification-plugin.html
+
+7.  https://earthenginepartners.appspot.com/science-2013-global-forest
+
+8.  http://www.globallandcover.com/GLC30Download/index.aspx
+
+9.  https://gapanalysis.usgs.gov/gaplandcover/data/download/
+
+Sources for climatic, elevation models, and other data:
+
+10.  http://www.worldclim.org/bioclim
+
+11. https://lpdaac.usgs.gov/data_access/gdex
+
+12. https://cims.coastal.louisiana.gov/monitoring-data/
+
+13. http://sinit.hn/#
+
+USA counties and roads:
+
+14. https://www.census.gov/geo/maps-data/data/cbf/cbf_counties.html
+
+15. https://catalog.data.gov/dataset/tiger-line-shapefile-2016-nation-u-s-primary-roads-national-shapefile
+
+Information on the packages used in this guide:
+
+16. https://cran.r-project.org/web/packages/raster/raster.pdf
+
+17. https://cran.r-project.org/web/packages/rgdal/index.html
+
+18. https://cran.r-project.org/web/packages/sp/index.html
+
+19. https://cran.r-project.org/web/packages/geosphere/geosphere.pdf
+
+Another platform to conduct analysis or view geospatial information is QGIS which is free and available at:
+
+20. https://qgis.org/en/site/forusers/download.html
+
+### R libraries used in this guide
+
+```{r}
+if (!require(readr)) install.packages('readr')
+suppressWarnings(suppressMessages(library(readr)))
+
+if (!require(raster)) install.packages('raster')
+suppressWarnings(suppressMessages(library(raster))) # For data manupulation, reading, and writing of data such as rasters
+
+if (!require(rgdal)) install.packages('rgdal')
+suppressWarnings(suppressMessages(library(rgdal))) # Geospatial data loading and manipulation (e.g. load shapefiles)
+
+if (!require(sp)) install.packages('sp') 
+suppressWarnings(suppressMessages(library(sp))) #Converts  data frames to spatial files, plots maps, prints, summarizes
+
+if (!require(geosphere)) install.packages('geosphere') 
+suppressWarnings(suppressMessages(library(geosphere))) # Computations of several aspects of distance, direction, and area (e.g.calculates distances)
+```
+
+
+## Vector manipulation and analysis
+
+* Add GPS points for a plant species found along the Gulf Coast of the United States. The data is a subset from multiple databases found in the Coastal Protection and Restoration Authority website (resource # 12). The *Aaustralis* file reflects data from the herbaceous marsh database and summarized hydrographic data:
+
+```{r}
+Aaustralis <- read_csv("data/Aaustralis.csv") # Load the data
+Aaustralis.points <- as.data.frame(Aaustralis[,19:20]) # Select the coordinate columns
+Aaustralis.points <- Aaustralis.points[!duplicated(Aaustralis.points),] # Eliminate duplicate coordinates
+
+plot(Aaustralis.points$Longitude,Aaustralis.points$Latitude, xlab="Lon", ylab="Lat")
+```
+
+
+* Add polygons and lines (from the United States Census Bureau-resources #14 and 15):
+
+```{r}
+Roads<-readOGR("vectors/tl_2016_us_primaryroads.shp")
+US.counties<-readOGR("vectors/cb_2017_us_county_5m.shp")
+US.counties # View metadata summary
+```
+
+* You can also access the attribute table of the shapefile:
+
+```{r}
+head(US.counties@data)
+```
+
+* These are the names of the headers from the attribute table: 
+
+```{r}
+names(US.counties@data)
+```
+
+* US counties:
+
+```{r}
+plot(US.counties)
+```
+
+* Select and subset Louisiana counties:
+
+```{r}
+LA<-US.counties[US.counties$STATEFP == 22,]
+plot(LA)
+```
+
+* Subset the roads that intersect Louisiana: 
+
+```{r}
+Roads.LA<-intersect(Roads, LA)
+```
+
+* Plot a specific part of Louisiana:
+
+```{r}
+plot(LA, xlim=c(-93.8, -89.0), ylim=c(29.1, 32), xlab="Lon", ylab="Lat", main="A.australis", col="gray")
+points(Aaustralis.points$Longitude,Aaustralis.points$Latitude, col="blue")
+lines(Roads.LA, col="red")
+```
+
+
+* Select points by location and save to new file:
+
+```{r}
+# Because x (Lon) and y (Lat) are reversed in Aaustralis.points columns
+x<-Aaustralis.points$Longitude
+y<-Aaustralis.points$Latitude
+A.points<-cbind(x,y)
+A.points.shape<-SpatialPoints(A.points) # This creates a shapefile
+
+# Subset a county in Louisiana
+PLA<-LA[LA$NAME == "Plaquemines",]
+proj4string(A.points.shape)<-proj4string(PLA) # Double check if indeed both are in the same reference system. We know PLA but assume Aaustralis is in the same
+
+Australis.Plaq<-A.points.shape[complete.cases(over(A.points.shape,PLA)),]  # Select the points that are intersecting with the Plaquemines county
+
+length(Australis.Plaq) # Amount of points that were subset of Aaustralis in Plaquemines county, Louisiana
+```
+
+```{r}
+plot(PLA)
+points(Australis.Plaq)
+```
+
+* Quantify nearest distance between all points:
+
+```{r}
+Dist.matrix<-distm(A.points.shape) # Distances in meters, default assumed datum is WGS84, so must convert to one of the supported datums specified in the "geosphere" library
+Dist.matrix[1:5,3] # Show a bit of the matrix
+Dist.matrix.Aaustralis<-write.csv(Dist.matrix, file="DM_Aaustralis.csv")
+```
+
+## Raster manipulation and analysis
+
+* Add continuous raster from the Worldclim database (resource #10) and explore:
+
+```{r}
+# Worldclim dataset
+WC.rasters<-getData("worldclim", var="bio", res=2.5) # "res"" is resolution and it is at 2.5 minute which is roughly 16 km2
+Annual.ppt<-WC.rasters[[12]] # This selects one of the 12 bioclimatic variables
+plot(Annual.ppt)
+```
+
+```{r}
+Annual.ppt
+```
+
+
+* Add and explore a categorical raster from the National Gap Analysis Project, "GAP/LANDFIRE National Terrestrial Ecosystems 2011" (resource # 8):
+
+```{r}
+Raster2<-raster("rasters/gaplf2011lc_v30_la.tif")
+projection(Raster2)
+proj4string(PLA) # They are different
+```
+
+* Access the data within the raster:
+
+```{r}
+Raster2@data
+```
+
+* Crop and mask a raster: First, transform PLA (Plaquemines county polygon) to the reference of the raster of land cover.
+
+```{r}
+
+PLA.new<-spTransform(PLA, crs("+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=23 +lon_0=-96 +x_0=0 +y_0=0 +datum=NAD83 +units=m +no_defs +ellps=GRS80 +towgs84=0,0,0")) # Will change the CRS of PLA to that of the raster
+
+PLA.crop<-crop(Raster2, extent(PLA.new)) # Will crop the Land cover raster to the extent of Plaquemines
+PLA.LC<-mask(PLA.crop, PLA.new) # Will use a mask so the cut follows the border of Plaquemines
+plot(PLA.LC)
+```
+
+
+* Reproject and resample: Reproject will modify or project the raster in another coordinate reference system. Resample modifies a raster to the features of another, particularly the resolution (i.e. the pixel size).
+
+```{r, messages=FALSE}
+PLA.WGS<-spTransform(PLA, crs("+proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0")) # Transform the polygon to the Worldclim's resolution
+
+PLA.annualppt.crop<-crop(Annual.ppt, extent(PLA.WGS)) # Will crop the Land cover raster to the extent of Plaquemines WGS84
+PLA.annualppt.mask<-mask(PLA.annualppt.crop, PLA.WGS)
+
+# Reproject the raster of Worldclim to the resolution of the local raster
+newcrs<-CRS("+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=23 +lon_0=-96 +x_0=0 +y_0=0 +datum=NAD83 +units=m +no_defs +ellps=GRS80 +towgs84=0,0,0")
+Annualppt.PLA<-projectRaster(PLA.annualppt.mask, crs=newcrs)
+
+# Finally, resample or match the resolution of both rasters. From 30 m of the Land Cover to resolution of the climate raster 
+PLA.LC16k<-resample(PLA.LC, Annualppt.PLA) # Actually 16 km2 of res
+plot(PLA.LC16k)
+```
+
+
+## Quick raster analyses examples
+
+* Determine percentage of an area within a polygon:
+
+```{r}
+Landvalues<-ncell(PLA.LC) # All the pixels
+Landvalues
+```
+
+```{r}
+Landvalues_count_Agri<-sum(PLA.LC[,]==557, na.rm=T)# Add all the pixels that are Atlantic Coastal Plain Tidal Marsh
+Landvalues_count_Agri
+```
+
+```{r}
+# Translate to area
+Total_Area<- (Landvalues*900)*0.000001 #900 reflects the 30 m2 and then multiplied to get km2
+Total_Area
+```
+
+```{r}
+#Now for the agri land class we summarized
+Total_Agri<-(Landvalues_count_Agri*900)*0.000001
+Total_Agri
+```
+
+```{r}
+#Percentage of Agri class in Plaquemines
+(Total_Agri/Total_Area)*100
+```
+
+
+* Create a proximity layer: Using road data from the Sistema Nacional de Información Territorial de Honduras (SINIT-resource #13) and the Worldclim variable of annual precipitation at 1 km2 resolution. Both files have been subset to the extent of the Agalta Valley in Honduras.
+
+```{r}
+# Load the layer we wish as reference
+Agcor<-readOGR("vectors/Agricultural_corridor.shp") 
+PPT<-raster("rasters/Annualppt1k.tif")
+plot(PPT)
+lines(Agcor)
+```
+
+* From this starting point, create a template raster that will be a distance raster. The following script chunks follow a complete tutorial that is found in resource #4:
+
+```{r}
+r<-PPT
+r[]<-NA 
+Main.road<-rasterize(Agcor, r, field=1)
+summary(Main.road) 
+```
+
+* Now use this object with 1s to create a raster that has pixel values of the distance of that pixel to the main road (in meters):
+
+```{r}
+Main.road.distance<-distance(Main.road) 
+plot(Main.road.distance)
+lines(Agcor)
+```
+
+* In Km:
+
+```{r}
+Main.road.distance.km<-Main.road.distance/1000
+plot(Main.road.distance.km)
+lines(Agcor)
+```
+
+
+* Save the output to a new raster file that can be used outside of the session:
+
+```{r}
+writeRaster(Main.road.distance.km, "DistFromRoadv.tiff", "GTiff")
+```

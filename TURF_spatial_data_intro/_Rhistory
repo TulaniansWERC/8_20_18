@@ -1,0 +1,486 @@
+if (!require(raster)) install.packages('raster')
+library(raster) # For raster data manipulation
+if (!require(rgdal)) install.packages('rgdal')
+library(rgdal) # Geospatial data loading and manipulation (load shapefiles)
+if (!require(sp)) install.packages('sp')
+library(spl) # Geospatial data loading and manipulation (load shapefiles)
+library(sp) # Geospatial data loading and manipulation (load shapefiles)
+if (!require(raster)) install.packages('raster')
+library(raster) # For raster data manipulation
+if (!require(rgdal)) install.packages('rgdal')
+library(rgdal) # Geospatial data loading and manipulation (load shapefiles)
+if (!require(sp)) install.packages('sp')
+library(sp) # Geospatial data loading and manipulation (load shapefiles)
+if (!require(dplyr)) install.packages('dplyr')
+library(dplyr)
+library(readr)
+Aaustralis <- read_csv("data/Aaustralis.csv")
+View(Aaustralis)
+Aaustralis%>%select(Longitude,Latitude)
+head(Aaustralis)
+dim(Aaustralis)
+Aaustralis.points%>%distinct(Aaustralis)%>%select(Longitude,Latitude)
+Aaustralis.points<-distinct(Aaustralis)%>%select(Longitude,Latitude)
+head(Aaustralis.points)
+dim(Aaustralis.points)
+Aaustralis.points<-Aaustralis%>%select(Longitude,Latitude)%>%distinct
+dim(Aaustralis.points)
+head(Aaustralis.points)
+Aaustralis.points
+Aaustralis.points<-Aaustralis%>%select(Longitude,Latitude)%>%distinct(Aaustralis)
+if (!require(raster)) install.packages('raster')
+library(raster) # For raster data manipulation
+if (!require(rgdal)) install.packages('rgdal')
+library(rgdal) # Geospatial data loading and manipulation (load shapefiles)
+if (!require(sp)) install.packages('sp')
+library(sp) # Geospatial data loading and manipulation (load shapefiles)
+if (!require(dplyr)) install.packages('dplyr')
+library(dplyr) # Geospatial data loading and manipulation (load shapefiles)
+Aaustralis <- read_csv("data/Aaustralis.csv")
+Aaustralis.points<-Aaustralis%>%select(Longitude,Latitude)%>%distinct(Aaustralis.points)
+Aaustralis.points<-Aaustralis%>%select(Longitude,Latitude)
+dim(Aaustralis.points)
+head(Aaustralis.points)
+Aaustralis.points<-distinct(Aaustralis.points)
+head(Aaustralis.points)
+dim(Aaustralis.points)
+Aaustralis.points
+Aaustralis.points<-distinct(Aaustralis.points, Longitude, Latitude)
+head(Aaustralis.points)
+dim(Aaustralis.points)
+options(digits=15)
+Aaustralis.points<-Aaustralis%>%select(Longitude,Latitude)
+Aaustralis.points<-distinct(Aaustralis.points, Longitude, Latitude)
+head(Aaustralis.points)
+Aaustralis.points<-unique(Aaustralis[,19:20])
+dim(Aaustralis.points)
+head(Aaustralis.points)
+head(Aaustralis[[19]])
+if (!require(raster)) install.packages('raster')
+library(raster) # For raster data manipulation
+if (!require(rgdal)) install.packages('rgdal')
+library(rgdal) # Geospatial data loading and manipulation (load shapefiles)
+if (!require(sp)) install.packages('sp')
+library(sp) # Geospatial data loading and manipulation (load shapefiles)
+if (!require(dplyr)) install.packages('dplyr')
+library(dplyr) # Geospatial data loading and manipulation (load shapefiles)
+Aaustralis <- read_csv("data/Aaustralis.csv")
+class(Aaustralis)
+Aaustralis.points <- as.data.frame(Aaustralis[,19:20])
+head(Aaustralis.points)
+Aaustralis.points <- Aaustralis.points[!duplicated(Aaustralis.points),]
+head(Aaustralis.points)
+plot(Aaustralis.points)
+plot(Aaustralis.points$Longitude,Aaustralis.points$Latitude)
+if (!require(rworldmap)) install.packages('rworldmap')
+library(rworldmap)
+?getMap
+newmap <- getMap(resolution = "low")
+Aaustralis <- read_csv("data/Aaustralis.csv") # Load the data
+Aaustralis.points <- as.data.frame(Aaustralis[,19:20]) #Select the coordinate columns
+Aaustralis.points <- Aaustralis.points[!duplicated(Aaustralis.points),] #Eliminate duplicate coordinates
+newmap <- getMap(resolution = "low")
+plot(newmap, xlim = c(-93.8, -89.0), ylim = c(29.1, 30.1), asp = 1)
+plot(newmap, xlim = c(-93.8, -89.0), ylim = c(29.1, 50), asp = 1)
+plot(newmap, xlim = c(-93.8, -89.0), ylim = c(29.1, 32), asp = 1)
+points(Aaustralis.points$Longitude,Aaustralis.points$Latitude)
+plot(newmap, xlim = c(-93.8, -89.0), ylim = c(29.1, 32), asp = 1)
+points(Aaustralis.points$Longitude,Aaustralis.points$Latitude)
+US.counties<-readOGR("vectors/cb_2017_us_county_5m.shp")
+us.counties
+US.counties
+plot(US.counties)
+str(US.counties)
+plot(US.counties, xlim(-93.8, -89.0), ylim(29.1, 32))
+plot(US.counties, xlim=c(-93.8, -89.0), ylim=c(29.1, 32))
+plot(US.counties, xlim=c(-93.8, -89.0), ylim=c(29.1, 32), xlab="Lon", ylab="Lat", main="A.australis")
+points(Aaustralis.points$Longitude,Aaustralis.points$Latitude)
+plot(US.counties, xlim=c(-93.8, -89.0), ylim=c(29.1, 32), xlab="Lon", ylab="Lat", main="A.australis", col="green")
+points(Aaustralis.points$Longitude,Aaustralis.points$Latitude)
+plot(US.counties, xlim=c(-93.8, -89.0), ylim=c(29.1, 32), xlab="Lon", ylab="Lat", main="A.australis", col="gray")
+points(Aaustralis.points$Longitude,Aaustralis.points$Latitude, col="blue")
+Aaustralis <- read_csv("data/Aaustralis.csv") # Load the data
+Aaustralis.points <- as.data.frame(Aaustralis[,19:20]) #Select the coordinate columns
+Aaustralis.points <- Aaustralis.points[!duplicated(Aaustralis.points),] #Eliminate duplicate coordinates
+plot(Aaustralis.points$Longitude,Aaustralis.points$Latitude, xlab="Lon", ylab="Lat")
+plot(US.counties, xlim=c(-93.8, -89.0), ylim=c(29.1, 32), xlab="Lon", ylab="Lat", main="A.australis", col="gray")
+points(Aaustralis.points$Longitude,Aaustralis.points$Latitude, col="blue")
+Roads<-readOGR("vectors/tl_2016_us_primaryroads.shp")
+Roads
+plot(US.counties, xlim=c(-93.8, -89.0), ylim=c(29.1, 32), xlab="Lon", ylab="Lat", main="A.australis", col="gray")
+points(Aaustralis.points$Longitude,Aaustralis.points$Latitude, col="blue")
+lines(Roads)
+plot(US.counties, xlim=c(-93.8, -89.0), ylim=c(29.1, 32), xlab="Lon", ylab="Lat", main="A.australis", col="gray")
+points(Aaustralis.points$Longitude,Aaustralis.points$Latitude, col="blue")
+lines(Roads, col="red", lty="3")
+plot(US.counties, xlim=c(-93.8, -89.0), ylim=c(29.1, 32), xlab="Lon", ylab="Lat", main="A.australis", col="gray")
+points(Aaustralis.points$Longitude,Aaustralis.points$Latitude, col="blue")
+lines(Roads, col="red", lty="4")
+plot(US.counties, xlim=c(-93.8, -89.0), ylim=c(29.1, 32), xlab="Lon", ylab="Lat", main="A.australis", col="gray")
+points(Aaustralis.points$Longitude,Aaustralis.points$Latitude, col="blue")
+lines(Roads, col="red")
+US.counties@data
+names(US.counties@data)
+US.counties$NAME
+names(US.counties@data)
+US.counties$STATEFP
+US.counties$STATEFP$18
+library(dplyr)
+Us<-US.counties%>%select(STATEFP==18)
+Us<-US.counties%>%filter(STATEFP==18)
+plot(US.counties)
+US.counties[US.counties$STATEFP == 18,]
+LA<-US.counties[US.counties$STATEFP == 18,]
+plot(LA)
+US.counties$NAME=="Vermilion"
+LA<-US.counties[US.counties$STATEFP == 17,]
+LA<-US.counties[US.counties$STATEFP == 17,]
+plot(LA)
+LA<-US.counties[US.counties$STATEFP == 19,]
+plot(LA)
+LA<-US.counties[US.counties$STATEFP == 20,]
+plot(LA)
+LA<-US.counties[US.counties$STATEFP == 16,]
+plot(LA)
+LA<-US.counties[US.counties$STATEFP == 25,]
+plot(LA)
+LA<-US.counties[US.counties$STATEFP == 15,]
+plot(LA)
+LA<-US.counties[US.counties$STATEFP == 14,]
+plot(LA)
+LA<-US.counties[US.counties$STATEFP == 13,]
+plot(LA)
+LA<-US.counties[US.counties$STATEFP == 12,]
+plot(LA)
+LA<-US.counties[US.counties$STATEFP == 11,]
+plot(LA)
+0
+LA<-US.counties[US.counties$STATEFP == 10,]
+plot(LA)
+LA<-US.counties[US.counties$STATEFP == 9,]
+plot(LA)
+LA<-US.counties[US.counties$STATEFP == 8,]
+plot(LA)
+LA<-US.counties[US.counties$STATEFP == 7,]
+plot(LA)
+LA<-US.counties[US.counties$STATEFP == 6,]
+plot(LA)
+LA<-US.counties[US.counties$STATEFP == 18,]
+plot(LA)
+LA<-US.counties[US.counties$STATEFP == 22,]
+plot(LA)
+plot(LA, xlim=c(-93.8, -89.0), ylim=c(29.1, 32), xlab="Lon", ylab="Lat", main="A.australis", col="gray")
+points(Aaustralis.points$Longitude,Aaustralis.points$Latitude, col="blue")
+lines(Roads, col="red")
+Roads@data
+?intersect
+Roads.LA<-intersect(Roads, LA)
+class(LA)
+?spPolygons
+try=spPolygons(LA)
+LA
+intersect(Roads,LA)
+try
+?CRS
+crs(try)<-CRS("+proj=longlat +datum=NAD83 +no_defs +ellps=GRS80 +towgs84=0,0,0")
+try
+intersect(Roads,try)
+class(try)
+class(Roads)
+library(rgeos)
+if (!require(rgeos)) install.packages('rgeos')
+library(rgeos)
+road_intersects <-  gIntersects (LA, Roads, byid=TRUE) # determine which census tracts intersect with the buffer
+road_intersects
+Roads_sel <- Roads[as.vector(road_intersects),]
+x <- intersect(Roads, LA)
+x
+Roads.LA<-intersect(Roads, LA)
+plot(Roads.LA)
+plot(LA, xlim=c(-93.8, -89.0), ylim=c(29.1, 32), xlab="Lon", ylab="Lat", main="A.australis", col="gray")
+points(Aaustralis.points$Longitude,Aaustralis.points$Latitude, col="blue")
+lines(Roads.LA, col="red")
+?points
+?plot
+plot(LA, xlim=c(-93.8, -89.0), ylim=c(29.1, 32), xlab="Lon", ylab="Lat", main="A.australis", col="gray", add=TRUE)
+points(Aaustralis.points$Longitude,Aaustralis.points$Latitude, col="blue")
+lines(Roads.LA, col="red")
+plot(LA, xlim=c(-93.8, -89.0), ylim=c(29.1, 32), xlab="Lon", ylab="Lat", main="A.australis", col="gray", add=TRUE)
+lines(Roads.LA, col="red",add=TRUE)
+plot(LA, xlim=c(-93.8, -89.0), ylim=c(29.1, 32), xlab="Lon", ylab="Lat", main="A.australis", col="gray", add=TRUE)
+plot(Aaustralis.points$Longitude,Aaustralis.points$Latitude, col="blue")
+lines(Roads.LA, col="red")
+plot(LA, xlim=c(-93.8, -89.0), ylim=c(29.1, 32), xlab="Lon", ylab="Lat", main="A.australis", col="gray", add=TRUE)
+points(Aaustralis.points$Longitude,Aaustralis.points$Latitude, col="blue")
+lines(Roads.LA, col="red")
+plot(LA, xlim=c(-93.8, -89.0), ylim=c(29.1, 32), xlab="Lon", ylab="Lat", main="A.australis", col="gray", add=TRUE)
+points(Aaustralis.points$Longitude,Aaustralis.points$Latitude, col="blue")
+lines(Roads.LA, col="red")
+plot(LA, xlim=c(-93.8, -89.0), ylim=c(29.1, 32), xlab="Lon", ylab="Lat", main="A.australis", col="gray", add=TRUE)
+if (!require(raster)) install.packages('raster')
+library(raster) # For raster data manipulation
+if (!require(rgdal)) install.packages('rgdal')
+library(rgdal) # Geospatial data loading and manipulation (load shapefiles)
+if (!require(sp)) install.packages('sp')
+library(sp)
+Aaustralis <- read_csv("data/Aaustralis.csv") # Load the data
+Aaustralis.points <- as.data.frame(Aaustralis[,19:20]) #Select the coordinate columns
+Aaustralis.points <- Aaustralis.points[!duplicated(Aaustralis.points),] #Eliminate duplicate coordinates
+plot(Aaustralis.points$Longitude,Aaustralis.points$Latitude, xlab="Lon", ylab="Lat")
+Roads<-readOGR("vectors/tl_2016_us_primaryroads.shp")
+US.counties<-readOGR("vectors/cb_2017_us_county_5m.shp")
+US.counties #View metadata summary
+LA<-US.counties[US.counties$STATEFP == 22,]
+plot(LA)
+Roads.LA<-intersect(Roads, LA)
+plot(LA, xlim=c(-93.8, -89.0), ylim=c(29.1, 32), xlab="Lon", ylab="Lat", main="A.australis", col="gray", add=TRUE)
+points(Aaustralis.points$Longitude,Aaustralis.points$Latitude, col="blue")
+lines(Roads.LA, col="red")
+plot(LA, xlim=c(-93.8, -89.0), ylim=c(29.1, 32), xlab="Lon", ylab="Lat", main="A.australis", col="gray")
+points(Aaustralis.points$Longitude,Aaustralis.points$Latitude, col="blue")
+lines(Roads.LA, col="red")
+LA
+plot(LA)
+plot(LA, xlim=c(-93.8, -89.0), ylim=c(29.1, 32), xlab="Lon", ylab="Lat", main="A.australis", col="gray")
+points(Aaustralis.points$Longitude,Aaustralis.points$Latitude, col="blue")
+lines(Roads.LA, col="red")
+try=spPolygons(LA)
+crs(try)=CRS("+proj=longlat +datum=NAD83 +no_defs +ellps=GRS80 +towgs84=0,0,0 ")
+plot(try)
+LA
+try
+plot(LA)
+class(try)
+class(LA)
+?SpatialPolygons
+class(US.counties)
+plot(LA, xlim=c(-93.8, -89.0), ylim=c(29.1, 32), xlab="Lon", ylab="Lat", main="A.australis", col="gray")
+points(Aaustralis.points$Longitude,Aaustralis.points$Latitude, col="blue")
+lines(Roads.LA, col="red")
+LA@data
+over(LA$NAME=="Plaquemines",Aaustralis.points)
+PLA<-LA[LA$NAME == "22"Plaquemines,]
+PLA<-LA[LA$NAME == "Plaquemines",]
+head(PLA)
+over(PLA,Aaustralis.points)
+over(Aaustralis.points, PLA)
+class(Aaustralis.points)
+head(Aaustralis.points)
+#Because x (Lon) and y (Lat) are reversed in Aaustralis.points columns
+x<-Aaustralis.points$Longitude
+y<-Aaustralis.points$Latitude
+A.points<-cbind(x,y)
+A.points
+A.points.shape<-SpatialPoints(A.points)
+Australis.Plaq<-over(A.points, PLA)
+pol=SpatialPolygons(PLA)
+class(PLA)
+class(pol)
+?SpatialPolygons
+A.points
+if (!require(geosphere)) install.packages('geosphere')
+library(geosphere)
+distm(A.points.shape)
+?distm
+A.points.shape
+Aaustralis.points
+Dist.matrix<-distm(A.points.shape) # Distances in meters, defautl assumed datum is WGS84
+head(Dist.matrix)
+Dist.matrix.Aaustralis<-write.csv(Dist.matrix, file="DM_Aaustralis.csv")
+plot(PLA)
+Australis.Plaq<-over(A.points, PLA)
+Australis.Plaq<-!is.na(over(A.points,as(PLA,"SpatialPolygons")))
+A.points
+class(A.points)
+Australis.Plaq<-over(A.points.shape, PLA)
+head(PLA)
+PLA
+A.points.shape
+proj4string(A.points.shape)<-proj4string(PLA) #Double check if indeed both are in the same reference system. We know PLA but assum Aaustralis is in the same
+Australis.Plaq<-over(A.points.shape, PLA)
+Australis.Plaq
+Australis.Plaq<-!is.na(over(A.points.shape, as(PLA, "SpatialPolygons"))) #Select the points that are intersecting with the Plaquemines county
+Australis.Plaq
+Australis.Plaq<-[!is.na(over(A.points.shape,PLA)),] #Select the points that are intersecting with the Plaquemines county
+Australis.Plaq<-A.points.shape[!is.na(over(A.points.shape,PLA)),] #Select the points that are intersecting with the Plaquemines county
+Australis.Plaq<-A.points.shape[!is.na(over(A.points.shape,PLA)),]
+Australis.Plaq<-A.points[!is.na(over(A.points,PLA)),]
+Australis.Plaq<-A.points.shape[!is.na(over(A.points.shape,PLA)),]
+Australis.Plaq<-A.points.shape[complete.cases(over(A.points.shape,PLA)),]
+plot(PLA)
+points(Australis.Plaq)
+Australis.Plaq
+Australis.Plaq@coords
+dim(Australis.Plaq)
+length(Australis.Plaq)
+# Worldclim dataset
+Raster<-getData("Worldclim", var="bio", res=10)
+# Worldclim dataset
+Raster<-getData("worldclim", var="bio", res=10)
+Annual.ppt<-Raster[[12]]
+plot(Annual.ppt)
+Annual.ppt
+hist(Annual.ppt)
+Raster2<-raster("rasters/gaplf2011lc_v30_la.tif")
+Raster2
+PLA
+plot(Raster2)
+projection(Raster2)
+proj4string(PLA)
+Raster2@data
+projection(Raster2)
+PLA.new<-spTransform(PLA, crs("+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=23 +lon_0=-96 +x_0=0 +y_0=0 +datum=NAD83 +units=m +no_defs +ellps=GRS80 +towgs84=0,0,0"))
+PLA.new
+plot(PLA.new)
+PLA.crop<-crop(Raster2, extent(PLA.new)) #Will crop the Land cover raster to the extent of Plaquemines
+PLA.LC<-mask(PLA.crop, PLA.new) #Will use a mask so the cut follows the border of Plaquemines
+plot(PLA.LS)
+plot(PLA.LC)
+PLA.crop
+extent of Plaquemines
+PLA.LC<-mask(PLA.crop, PLA.new) #Will use a mask so the cut follows the border of Plaquemines
+plot(PLA.LC)
+PLA.WGS<-spTransform(PLA, crs()) # Transform the polygon to the Worldclim
+proj4string(Annual.ppt)
+PLA.WGS<-spTransform(PLA, crs("+proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0")) # Transform the polygon to the Worldclim
+PLA.annualppt.crop<-crop(Annual.ppt, extent(PLA.WGS)) #Will crop the Land cover raster to the extent of Plaquemines WGS84
+PLA.annualppt.mask<-mask(PLA.annualppt.crop, PLA.WGS)
+# Reproject the raster of Worldclim to the resolution of the local raster
+newcrs<-CRS("+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=23 +lon_0=-96 +x_0=0 +y_0=0 +datum=NAD83 +units=m +no_defs +ellps=GRS80 +towgs84=0,0,0")
+Annualppt.PLA<-projectRaster(PLA.annualppt.mask, crs=newcrs)
+# Finally, resample or match the resolution of both rasters. From 30 m of the Land Cover to 1 km of the Climate
+PLA.LC1k<-resample(PLA.LC, Annualppt.PLA)
+PLA.LC1k
+Annualppt.PLA
+Annual.ppt
+?getData
+# Worldclim dataset
+Raster1k.1<-getData("worldclim", var="bio", res=0.5, lon=-90, lat=30) #res 10 minute
+Annual.ppt<-Raster1.k1[[12]]
+Annual.ppt<-Raster1k.1[[12]]
+plot(Annual.ppt)
+# Worldclim dataset
+Raster1k.2<-getData("worldclim", var="bio", res=0.5, lon=-80, lat=30) #res 10 minute
+Annual.ppt<-Raster1k.2[[12]]
+plot(Annual.ppt)
+# Worldclim dataset
+Raster1k.3<-getData("worldclim", var="bio", res=0.5, lon=-80, lat=20) #res 10 minute
+Annual.ppt<-Raster1k.3[[12]]
+plot(Annual.ppt)
+# Worldclim dataset
+Raster1k.3<-getData("worldclim", var="bio", res=0.5, lon=-80, lat=150) #res 10 minute
+# Worldclim dataset
+Raster1k.3<-getData("worldclim", var="bio", res=0.5, lon=-80, lat=15) #res 10 minute
+Annual.ppt<-Raster1k.3[[12]]
+plot(Annual.ppt)
+# Worldclim dataset
+Raster1k.3<-getData("worldclim", var="bio", res=0.5, lon=-950, lat=15) #res 10 minute
+# Worldclim dataset
+Raster1k.3<-getData("worldclim", var="bio", res=0.5, lon=-95, lat=15) #res 10 minute
+Annual.ppt<-Raster1k.3[[12]]
+plot(Annual.ppt)
+# Worldclim dataset
+Raster1k.4<-getData("worldclim", var="bio", res=0.5, lon=-95, lat=40) #res 10 minute
+Annual.ppt<-Raster1k.4[[12]]
+plot(Annual.ppt)
+# Worldclim dataset
+WC.rasters<-getData("worldclim", var="bio", res=2.5) #res 2.5 minute roughly
+Annual.ppt<-wc.rasters[[12]]
+Annual.ppt<-WC.rasters[[12]] #this selects one of the 12 bioclimatic variables
+plot(Annual.ppt)
+Annual.ppt
+PLA.WGS<-spTransform(PLA, crs("+proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0")) # Transform the polygon to the Worldclim
+PLA.annualppt.crop<-crop(Annual.ppt, extent(PLA.WGS)) #Will crop the Land cover raster to the extent of Plaquemines WGS84
+PLA.annualppt.mask<-mask(PLA.annualppt.crop, PLA.WGS)
+# Reproject the raster of Worldclim to the resolution of the local raster
+newcrs<-CRS("+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=23 +lon_0=-96 +x_0=0 +y_0=0 +datum=NAD83 +units=m +no_defs +ellps=GRS80 +towgs84=0,0,0")
+Annualppt.PLA<-projectRaster(PLA.annualppt.mask, crs=newcrs)
+# Finally, resample or match the resolution of both rasters. From 30 m of the Land Cover to 1 km of the Climate
+PLA.LC1k<-resample(PLA.LC, Annualppt.PLA)
+PLA.LC1k
+plot(PLA.LC1k)
+plot(PLA.LC)
+Landvalues_count_ACPTM<-sum(PLA.LC==401, na.rm) #Add all the pixels that are Atlantic Coastal Plain Tidal Marsh
+Landvalues_count_ACPTM<-sum(PLA.LC==401, na.rm=T) #Add all the pixels that are Atlantic Coastal Plain Tidal Marsh
+?cellStats
+Landvalues_count_ACPTM<-cellStats(PLA.LC==401, "sum") #Add all the pixels that are Atlantic Coastal Plain Tidal Marsh
+Landvalues_count_ACPTM
+Landvalues_count_ACPTM<-cellStats(PLA.LC==500, "sum") #Add all the pixels that are Atlantic Coastal Plain Tidal Marsh
+Landvalues_count_ACPTM
+Landvalues<-cellStats(PLA.LC) #Add all the pixels that are Atlantic Coastal Plain Tidal Marsh
+Landvalues<-cellStats(PLA.LC, "sum") #Add all the pixels that are Atlantic Coastal Plain Tidal Marsh
+Landvalues
+Landvalues_count_ACPTM<-sum(PLA.LC[,]==401, na.rm)
+Landvalues_count_ACPTM<-sum(PLA.LC[,]==401, na.rm=T)
+Landvalues_count_ACPTM
+PLA.LC@data
+Landvalues_count_ACPTM<-sum(PLA.LC[,]==557, na.rm)
+Landvalues_count_ACPTM<-sum(PLA.LC[,]==557, na.rm=T)
+Landvalues_count_ACPTM
+PLA.LC
+?aggregate
+?extract
+Landvalues<-sum(PLA.LC, na.rm=T) #All the pixels
+Landvalues
+Landvalues<-ncell(PLA.LC) #All the pixels
+Landvalues
+PLA.LC
+Landvalues_count_Agri<-sum(PLA.LC[,]==557, na.rm=T)#Add all the pixels that are Atlantic Coastal Plain Tidal Marsh
+Landvalues_count_Agri
+#Translate to areas
+Total_Area<- Landvalues*900 #30 m2
+Total_Area
+#Translate to areas
+Total_Area<- (Landvalues*900)/10000 #900 reflects the 30 m2 and then divided by 10000 to reflect ha
+Total_Area
+#Translate to areas
+Total_Area<- (Landvalues*900)*0.000001 #900 reflects the 30 m2 and then multiplied to get km2
+Total_Area
+PLA.LC
+#Now for the agri land class we summarized
+Total_Agri<-(Landvalues_count_Agri*900)*0.000001
+Total_Agri
+#Percentage of Agri class in Plaquemines
+(Total_Agri/Total_Area)*100
+Total_Agri/Total_Area
+plot(Raster2)
+Raster2
+Roads.LA
+Roads.LA.new<-spTransform(PLA, crs("+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=23 +lon_0=-96 +x_0=0 +y_0=0 +datum=NAD83 +units=m +no_defs +ellps=GRS80 +towgs84=0,0,0"))
+Roads.LA.new
+lines(Roads.LA.new, col="red")
+plot(PLA.LC)
+lines(Roads.LA.new, col="red")
+plot(Raster2)
+lines(Roads.LA.new, col="red")
+Roads.LA.new<-spTransform(Roads.LA, crs("+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=23 +lon_0=-96 +x_0=0 +y_0=0 +datum=NAD83 +units=m +no_defs +ellps=GRS80 +towgs84=0,0,0"))
+plot(Raster2)
+lines(Roads.LA.new, col="red")
+Raster2
+Roads.LA.new
+Roads.LA.new<-spTransform(Roads.LA, crs("+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=23 +lon_0=-96 +x_0=0 +y_0=0 +datum=NAD83 +units=m +no_defs +ellps=GRS80 +towgs84=0,0,0"))
+plot(Raster2)
+plot(Raster2)
+lines(Roads.LA.new, col="red")
+r<-Raster2
+r[]<-NA #assigns NA as a template
+roads.r<-rasterize(Roads.LA.new, r, field=1)
+summary(roads.r)
+PLA.LC
+Roads.LA.new<-spTransform(Roads.LA, crs("+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=23 +lon_0=-96 +x_0=0 +y_0=0 +datum=NAD83 +units=m +no_defs +ellps=GRS80 +towgs84=0,0,0"))
+plot(PLA.LC)
+lines(Roads.LA.new, col="red")
+PLA.LC1k
+Raster2.1k<-resample(Raster2, PLA.LC1k)
+# Load the layer we wish as reference
+Agcor<-readOGR("vectors/Agricultural_corridor.shp")
+PPT<-raster("rasters/Annualppt1k.tif")
+plot(PPT)
+lines(Agcor)
+r<-PPT
+r[]<-NA #assigns NA as a template
+roads.r<-rasterize(Agcor, r, field=1)
+summary(roads.r) #it has added 1 to those pixels that have a road crossing
+roaddist.r<-distance(roads.r)
+plot(roaddist.r)
+lines(Agcor)

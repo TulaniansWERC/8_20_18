@@ -1,0 +1,12 @@
+"0","# Worldclim dataset"
+"0","WC.rasters<-getData(""worldclim"", var=""bio"", res=2.5) # ""res"""" is resolution and it is at 2.5 minute which is roughly 16 km2"
+"2","trying URL 'http://biogeo.ucdavis.edu/data/climate/worldclim/1_4/grid/cur/bio_2-5m_bil.zip'
+"
+"2","Content type 'application/zip'"
+"2"," length 129319755 bytes (123.3 MB)
+"
+"2","downloaded 123.3 MB
+
+"
+"0","Annual.ppt<-WC.rasters[[12]] # This selects one of the 12 bioclimatic variables"
+"0","plot(Annual.ppt)"

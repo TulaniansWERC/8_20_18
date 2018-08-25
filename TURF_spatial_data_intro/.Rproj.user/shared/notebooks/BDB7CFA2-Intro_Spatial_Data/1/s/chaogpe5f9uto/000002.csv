@@ -1,0 +1,2 @@
+"0","LA<-US.counties[US.counties$STATEFP == 22,]"
+"0","plot(LA)"

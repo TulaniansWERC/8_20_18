@@ -1,0 +1,7 @@
+"0","# Translate to area"
+"0","Total_Area<- (Landvalues*900)*0.000001 #900 reflects the 30 m2 and then multiplied to get km2"
+"0","Total_Area"
+"1","[1]"
+"1"," 11274.52"
+"1","
+"

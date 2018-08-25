@@ -1,0 +1,3 @@
+"0","PLA.WGS<-spTransform(PLA, crs()) # Transform the polygon to the Worldclim"
+"2","Error in .local(x, ...) : argument ""x"" is missing, with no default
+"

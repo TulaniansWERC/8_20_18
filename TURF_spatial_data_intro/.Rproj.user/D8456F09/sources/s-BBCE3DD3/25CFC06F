@@ -1,0 +1,29 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1532019157589.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "25CFC06F",
+    "lastKnownWriteTime" : 31244212046397532,
+    "last_content_update" : 1532019157589,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "496AC041",
+        "caption" : "Aaustralis",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=Aaustralis&cache_key=496AC041",
+        "displayedObservations" : 775,
+        "environment" : "",
+        "object" : "Aaustralis",
+        "preview" : 0,
+        "totalObservations" : 775,
+        "variables" : 20
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}

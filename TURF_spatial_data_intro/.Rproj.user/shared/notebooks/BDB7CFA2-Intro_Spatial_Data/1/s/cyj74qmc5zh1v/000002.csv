@@ -1,0 +1,17 @@
+"0","Aaustralis <- read_csv(""data/Aaustralis.csv"") # Load the data"
+"2","Missing column names filled in: 'X1' [1]"
+"2","Parsed with column specification:
+cols(
+  .default = col_double(),
+  X1 = col_integer(),
+  StationFront = col_character(),
+  Year = col_integer(),
+  Counts = col_integer(),
+  SpecCode = col_character()
+)
+"
+"2","See spec(...) for full column specifications.
+"
+"0","Aaustralis.points <- as.data.frame(Aaustralis[,19:20]) # Select the coordinate columns"
+"0","Aaustralis.points <- Aaustralis.points[!duplicated(Aaustralis.points),] # Eliminate duplicate coordinates"
+"0","plot(Aaustralis.points$Longitude,Aaustralis.points$Latitude, xlab=""Lon"", ylab=""Lat"")"

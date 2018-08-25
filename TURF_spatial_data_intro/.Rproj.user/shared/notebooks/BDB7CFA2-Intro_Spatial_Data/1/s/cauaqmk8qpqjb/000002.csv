@@ -1,0 +1,6 @@
+"0","Landvalues_count_Agri<-sum(PLA.LC[,]==557, na.rm=T)# Add all the pixels that are Atlantic Coastal Plain Tidal Marsh"
+"0","Landvalues_count_Agri"
+"1","[1]"
+"1"," 22134"
+"1","
+"

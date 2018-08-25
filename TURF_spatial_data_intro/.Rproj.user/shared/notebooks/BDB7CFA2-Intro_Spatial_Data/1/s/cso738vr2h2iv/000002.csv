@@ -1,0 +1,1 @@
+"0","plot(LA, xlim=c(-93.8, -89.0), ylim=c(29.1, 32), xlab=""Lon"", ylab=""Lat"", main=""A.australis"", col=""gray"")"
